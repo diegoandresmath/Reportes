@@ -48,9 +48,9 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
     public Cursor obtenerInformacion(SQLiteDatabase db) {
-        String columnasUbicacion[] = {"fecha", "latitud", "latitud"};
+        String columnasUbicacion[] = {"fecha", "latitud", "longitud"};
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("SELECT fecha, latitud, latitud FROM ubicacion");
+        stringBuilder.append("SELECT fecha, latitud, longitud FROM ubicacion");
 
         Cursor cursor = db.query("ubicacion", columnasUbicacion, null, null, null, null, null);
         return cursor;

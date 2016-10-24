@@ -13,7 +13,7 @@ import android.widget.Button;
 import ec.sandoval.srv.DialogReport;
 
 public class MenuActivity extends AppCompatActivity {
-    private Button btnMapa, btnCoordenadas, btnReporte;
+    private Button btnMapa, btnCoordenadas, btnReporte, btnReporteOpcional;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,7 @@ public class MenuActivity extends AppCompatActivity {
         btnLanzarMapas();
         btnCoordenadas();
         btnReporte();
+        btnReporteOpcional();
     }
 
     public void btnLanzarMapas() {
@@ -74,7 +75,20 @@ public class MenuActivity extends AppCompatActivity {
         );
     }
 
-    public void btnReporteOpcional(View view) {
-        startActivity(new Intent(this, ReportActivity.class));
+    public void btnReporteOpcional() {
+        Log.d("DLC", "MenuActivity.btnReporteOpcional");
+        btnReporteOpcional = (Button) findViewById(R.id.btnReporteOpcional);
+        btnReporteOpcional.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("DLC", "MenuActivity.btnReporteOpcional.onClick -> antes");
+                        //startActivity(new Intent(MainActivity.this,MapasActivity.class));
+                        Intent intent = new Intent(getApplicationContext(), ReportActivity.class);
+                        startActivity(intent);
+                        Log.d("DLC", "MenuActivity.btnReporteOpcional.onClick -> despues");
+                    }
+                }
+        );
     }
 }

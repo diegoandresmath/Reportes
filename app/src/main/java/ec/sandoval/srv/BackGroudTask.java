@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class BackGroudTask extends AsyncTask<String, Ubicacion, String> {
         DataBase dataBase = new DataBase(context);
 
         if (metodo.equals("get_info")) {
+            Log.d("DLC", "BackGroudTask.doInBackground.IF");
             listView = (ListView) activity.findViewById(R.id.lvRuta);
             SQLiteDatabase db = dataBase.getReadableDatabase();
             Cursor cursor = dataBase.obtenerInformacion(db);
@@ -45,9 +47,14 @@ public class BackGroudTask extends AsyncTask<String, Ubicacion, String> {
             Float latitud, longitud;
 
             while (cursor.moveToNext()) {
+                Log.d("DLC", "BackGroudTask.doInBackground.WHILE");
                 fecha = cursor.getString(cursor.getColumnIndex("fecha"));
+                Log.d("DLC", "BackGroudTask.doInBackground.WHILE.fecha: " + fecha);
                 latitud = cursor.getFloat(cursor.getColumnIndex("latitud"));
+                Log.d("DLC", "BackGroudTask.doInBackground.WHILE.latitud: " + latitud);
                 longitud = cursor.getFloat(cursor.getColumnIndex("longitud"));
+                Log.d("DLC", "BackGroudTask.doInBackground.WHILE.longitud: " + longitud);
+                Log.d("DLC", "BackGroudTask.doInBackground.WHILE.fecha: " + fecha + ", latitud: " + latitud + ", longitud: " + longitud);
 
                 Ubicacion ubicacion = new Ubicacion(fecha, latitud, longitud);
                 publishProgress(ubicacion);
@@ -60,15 +67,19 @@ public class BackGroudTask extends AsyncTask<String, Ubicacion, String> {
 
     @Override
     protected void onProgressUpdate(Ubicacion... values) {
+        Log.d("DLC", "BackGroudTask.onProgressUpdate");
         ubicacionAdapter.add(values[0]);
 
     }
 
     @Override
     protected void onPostExecute(String s) {
+        Log.d("DLC", "BackGroudTask.onPostExecute");
         if (s.equals("get_info")) {
+            Log.d("DLC", "BackGroudTask.onPostExecute.IF");
             listView.setAdapter(ubicacionAdapter);
         } else {
+            Log.d("DLC", "BackGroudTask.onPostExecute.ELSE");
             Toast.makeText(context, s, Toast.LENGTH_LONG).show();
         }
     }
