@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -36,12 +37,14 @@ public class BackGroudTask extends AsyncTask<String, Ubicacion, String> {
     protected String doInBackground(String... params) {
         String metodo = params[0];
         DataBase dataBase = new DataBase(context);
+        Bundle getDesde = null, getHasta = null;
 
         if (metodo.equals("get_info")) {
             Log.d("DLC", "BackGroudTask.doInBackground.IF");
             listView = (ListView) activity.findViewById(R.id.lvRuta);
             SQLiteDatabase db = dataBase.getReadableDatabase();
             Cursor cursor = dataBase.obtenerInformacion(db);
+            //Cursor cursor = dataBase.obtenerInformacionRango(db, getDesde.getString("desde"), getHasta.getString("hasta"));
             ubicacionAdapter = new UbicacionAdapter(context, R.layout.report_ruta);
             String fecha;
             Float latitud, longitud;

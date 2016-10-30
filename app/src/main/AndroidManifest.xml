@@ -44,7 +44,8 @@
         </activity>
         <activity android:name=".MapsActivity" />
         <activity android:name=".CoordenadasActivity" />
-        <activity android:name=".ReportActivity"></activity>
+        <activity android:name=".ReportActivity" />
+        <activity android:name=".RangoActivity"></activity>
     </application>
 
 </manifest>

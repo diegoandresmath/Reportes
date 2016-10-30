@@ -4,13 +4,12 @@ import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import ec.sandoval.srv.DialogReport;
+import ec.sandoval.srv.DialogoReporte;
 
 public class MenuActivity extends AppCompatActivity {
     private Button btnMapa, btnCoordenadas, btnReporte, btnReporteOpcional;
@@ -68,8 +67,10 @@ public class MenuActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Log.d("DLC", "MainActivity.btnReporte.onClick");
-                        DialogReport dialogReport = new DialogReport();
-                        //dialogReport.show(getSupportFragmentManager(),"DLC");
+                        //DialogoReporte dialogReport = new DialogoReporte();
+                        //dialogReport.show(MenuActivity.this.getSupportFragmentManager(),"NoticeDialogFragment");
+                        Intent intent = new Intent(getApplicationContext(), RangoActivity.class);
+                        startActivity(intent);
                     }
                 }
         );

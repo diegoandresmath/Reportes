@@ -7,6 +7,7 @@ import java.util.Date;
  */
 
 public class Ubicacion {
+    private int id;
     private String fecha;
     private Float latitud;
     private Float longitud;
@@ -14,10 +15,25 @@ public class Ubicacion {
     public Ubicacion() {
     }
 
+    public Ubicacion(int id, String fecha, Float latitud, Float longitud) {
+        this.setId(id);
+        this.setFecha(fecha);
+        this.setLatitud(latitud);
+        this.setLongitud(longitud);
+    }
+
     public Ubicacion(String fecha, Float latitud, Float longitud) {
         this.setFecha(fecha);
         this.setLatitud(latitud);
         this.setLongitud(longitud);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFecha() {

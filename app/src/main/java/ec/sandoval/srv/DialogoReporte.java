@@ -14,9 +14,13 @@ import ec.sandoval.mapas.R;
  * Created by ddelacruz on 23/10/2016.
  */
 
-public class DialogReport extends DialogFragment {
+public class DialogoReporte extends DialogFragment {
     LayoutInflater layoutInflater;
     View view;
+
+    public DialogoReporte() {
+        super();
+    }
 
     @NonNull
     @Override

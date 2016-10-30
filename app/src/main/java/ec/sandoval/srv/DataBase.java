@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import ec.sandoval.ent.Ubicacion;
 
 /**
@@ -54,5 +58,50 @@ public class DataBase extends SQLiteOpenHelper {
 
         Cursor cursor = db.query("ubicacion", columnasUbicacion, null, null, null, null, null);
         return cursor;
+    }
+
+    public Cursor obtenerInformacionRango(SQLiteDatabase db, String inicio, String fin) {
+        Log.d("DLC", "DataBase.obtenerInformacionRango ->");
+        String columnasUbicacion[] = {"fecha", "latitud", "longitud"};
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("SELECT fecha, latitud, longitud FROM ubicacion WHERE fecha >= ")
+                .append(inicio)
+                .append(" AND fecha <= ")
+                .append(fin);
+
+        Cursor cursor = db.query("ubicacion", columnasUbicacion, null, null, null, null, null);
+        Log.d("DLC", "DataBase.obtenerInformacionRango <-");
+        return cursor;
+    }
+
+    public List<Ubicacion> obtenerListadoUbications() {
+        Ubicacion ubicacion = null;
+        List<Ubicacion> resultado = null;
+
+        StringBuilder consulta = new StringBuilder();
+        consulta.append("SELECT id, fecha, latitud, longitud ")
+                .append("FROM ubicacion ")
+                .append(" ORDER BY id");
+
+        Log.d(Constants.TAG_DLC, "DataBase.obtenerUbications");
+
+        try {
+            Cursor cursor = this.getReadableDatabase().rawQuery(consulta.toString(), null);
+
+            if (cursor.getCount() > 0) {
+
+                resultado = new ArrayList<Ubicacion>();
+                cursor.moveToFirst();
+                while (!cursor.isClosed()) {
+                    ubicacion = new Ubicacion(cursor.getInt(0), cursor.getString(1), cursor.getFloat(2), cursor.getFloat(3));
+                    resultado.add(ubicacion);
+                    cursor.moveToNext();
+                }
+                cursor.close();
+            }
+        } catch (Exception e) {
+            Log.d(Constants.TAG_DLC, "DataBase.obtenerUbications.CATCH" + e);
+        }
+        return resultado;
     }
 }
